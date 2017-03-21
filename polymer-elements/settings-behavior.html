@@ -1,0 +1,28 @@
+<script>
+  ShowHideBehavior = {
+    properties: {
+      showHide: {
+        type: Boolean,
+        value: false,
+        notify: true,
+        observer: 'displayChanged'
+      },
+      isHidden: {
+        type: String,
+        value: ""
+      }
+    },
+    listeners: {
+      click: 'toggleHide'
+    },
+    created: function(){
+      console.log('Show Hide Behavior for ', this ,' is enabled');
+    },
+    toggleHide: function(){
+      this.showHide = !this.showHide;
+    },
+    displayChanged: function(value){
+      this.isHidden = this.showHide ? "hide" : "show";
+    }
+  }
+</script>

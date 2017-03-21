@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <script src="../bower_components/webcomponentsjs/webcomponents.min.js"></script>
+  <script src="../bower_components/web-component-tester/browser.js"></script>
+  <script src="../bower_components/test-fixture/test-fixture-mocha.js"></script>
+  
+  <link rel="import" href="../polymer-elements/chart-settings.html">
+  
+  
+</head>
+<body>
+  
+  <test-fixture id="chartSettings">
+    <template>
+      <chart-settings></chart-settings>
+    </template>
+  </test-fixture>
+  
+  <script>
+
+  var e = {
+            "detail": [
+                {
+                  "key": "1",
+                  "val": "Vertical Grouped Chart"
+                }, {
+                  "key": "2",
+                  "val": "Horizontal Grouped Chart"
+                }, {
+                  "key": "3",
+                  "val": "Vertical Stacked Chart"
+                }, {
+                  "key": "4",
+                  "val": "Horizontal Stacked Chart"
+                }]
+              };
+
+  suite('<chart-settings>', function() {
+    var settings;
+    setup(function() {
+      settings = fixture('chartSettings');
+    });
+    test('defines the "is" property', function() {
+      assert.equal(settings.is, 'chart-settings');
+    });
+    
+    test('layoutChanged', function() {      
+      var ev = settings.layoutChanged(e);
+      assert(typeof ev, 'Object');
+      assert.equal(settings.properties.layout.value, 'Vertical Grouped Chart');
+    });
+
+    test('Any layout change should reflect in title', function() {
+      var layout = document.getElementById('pxlayout').value;
+      var title = document.getElementById('inputData').value;
+      settings.layoutChanged(e);
+      
+      assert.equal(layout, title);
+    });
+
+  });
+
+  </script>
+</body>
+</html>

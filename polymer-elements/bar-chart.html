@@ -1,0 +1,130 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="chart-settings.html">
+<link href="../bower_components/px-simple-horizontal-bar-chart/px-simple-horizontal-bar-chart.html" rel="import">
+<link href="../bower_components/px-simple-bar-chart/px-simple-bar-chart.html" rel="import">
+<link href="../bower_components/px-toggle/px-toggle.html" rel="import">
+<dom-module id="bar-chart">
+	
+	<template>
+    <style>
+      .square {
+        width: 500px;
+        height: 360px;
+        background: #FFFFFF;
+        margin: 30px 40px 50px 50px;
+      }
+      #drilldown {
+        width: 150px;
+        height:100px;
+        background: #FFFFFF;
+        margin: 30px 250px 50px 250px;
+        border: 1px solid gray;
+      }
+      .title{
+        padding: 1em 2em;
+        height: 5%;
+      }
+      .chart{
+        padding: 1em 2em;
+        height: 70%;
+        
+      }
+      .timespan{
+        padding: 0em 2em;
+        height: 10%;
+        color: grey;
+      }
+      .layout{
+        width: 430px;
+        height:250px;
+        border-color : black;
+        border-bottom-style: solid;
+      }
+      .hide{
+        visibility: hidden;
+      }
+      .show{
+        visibility: visible;
+      }
+
+    </style>
+    
+    <div class="square">
+      <div class="title"><b>{{title}}</b></div>
+      <div class="chart">
+        <div class="layout">
+          <template is="dom-if" if="{{layoutChanged(layout,1)}}">
+            <px-simple-bar-chart width="auto" height="auto" chart-data$={{data}} colors='["#265dab"]' legend-labels='[]' legend-order="sequential"></px-simple-bar-chart>
+          </template>
+          <template is="dom-if" if="{{layoutChanged(layout,2)}}">
+            <px-simple-horizontal-bar-chart width="auto" height="auto" bar-labels="percentage" legend-labels='["Bar One","Bar Two","Bar Three","Bar Four","Bar Five","Bar Six"]' chart-data$={{data}}></px-simple-horizontal-bar-chart>
+          </template>
+          <template is="dom-if" if="{{layoutChanged(layout,3)}}">
+            <px-simple-bar-chart width="auto" height="auto" chart-data$={{stackData}}></px-simple-bar-chart>
+          </template>      
+        </div>
+        
+      </div>
+      <div class="timespan">{{timespan}}</div>
+    </div>
+
+    <div id="drilldown" class$={{toggled}}></div>
+	</template>
+	<script>
+    var defaultData = "[[1,2,3,4,5,0,4]]";
+    var defaultStackData = [ [1,2,3], [1,2,3], [1,2,3] ];
+		Polymer({
+			is: 'bar-chart',
+			properties :  {
+        title :{
+          type: String,
+          value: "Vertical Grouped Chart"
+        },
+        layout: {
+          type: String,
+          value: "Vertical Grouped Chart"
+        },
+        timespan: {
+          type: String
+        },
+        refreshrate: {
+          type: String
+        },
+        toggled:{
+          type: String,
+          value:'hide',
+          notify:true
+        },
+        data:{
+          type: Array,
+          value:function()
+          {
+            return defaultData;
+          },
+          notify:true
+        },
+        stackData:{
+          type: Array,
+          value:function()
+          {
+            return defaultStackData;
+          },
+          notify:true
+        }
+      },
+      layoutChanged : function(chart_demo,chart){
+        console.log(chart_demo);
+        if(chart_demo=="Vertical Grouped Chart" && chart == 1){
+          return true;
+        }else if(chart_demo=="Horizontal Grouped Chart" && chart == 2){
+          return true;
+        }else if(chart_demo=="Vertical Stacked Chart" && chart == 3){
+          return true;
+        }else{
+          return false;
+        }
+      }
+        
+		});
+	</script>
+</dom-module>

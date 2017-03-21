@@ -1,0 +1,176 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="bar-chart.html">
+<link rel="import" href="settings-behavior.html">
+<link rel="import" href="../bower_components/px-dropdown/css/px-dropdown-styles.html">
+<link href="../bower_components/px-dropdown/px-dropdown.html" rel="import">
+<link rel="stylesheet" href="../css/px.scss">
+<dom-module id="chart-settings">
+	<template>
+		<style include="../css/px.scss">
+		.box1 {
+		    display: block;
+		    padding: 2.5px;
+		    margin-bottom: 20px;
+		    text-align: justify;
+		}
+		.box2 {
+		    display: block;
+		    padding: 2.5px;
+		    text-align: justify;
+		}
+		#dropdown { 
+   	 		width: 300px;
+		}
+		#inputData {
+			width: 400px;
+			height: 25px;
+		}
+		#inputButton {
+			height: 31px;
+			margin-right: 0px;
+		}
+		#toggleinput{
+			align : right;
+		}
+
+		</style>
+		<div>
+			<div class="box1">
+			<table>	
+				<tr>
+					<td width="130" align="left"><label><b>SETTINGS</b></label></td>
+					<td width="350" align="right"><label><b>GROUPED BAR CHART</b></label></td>
+				</tr>
+			</table>	
+				<hr>
+			<table cellpadding="10">	
+				<tr>
+				   <td align="left"><label><b>Title</b></label></td>
+				   <td align="right"><input id="inputData" value="{{title::input}}" type="text" placeholder="Enter title here"></td>
+				</tr>
+				<tr>
+				   <td><label><b>Layout</b></label></td>
+				   <td><px-dropdown display-value="Vertical Grouped Chart" id="pxlayout"><px-dropdown-content extend-dropdown='true' extend-dropdown-by='5' max-cont-character-width='10' items='[{"key":"1","val":"Vertical Grouped Chart"},{"key":"2","val":"Horizontal Grouped Chart"},{"key":"3","val":"Vertical Stacked Chart"},{"key":"4","val":"Horizontal Stacked Chart"}]'></px-dropdown-content></px-dropdown></td>
+				</tr>
+				<tr>
+				   <td><label><b>Timespan</b></label></td>
+				   <td><px-dropdown display-value="Past 1 Day" id="pxtimespan"><px-dropdown-content extend-dropdown='true' extend-dropdown-by='5' max-cont-character-width='10' items='[{"key":"1","val":"Past 1 Day"},{"key":"2","val":"Past 3 Months"},{"key":"3","val":"Past 6 Months"}]'></px-dropdown-content></px-dropdown></td>
+				</tr>
+				<tr>
+				   <td><label><b>Refresh Rate</b></label></td>
+				   <td><px-dropdown display-value="1 Hour" id="pxrefreshrate"><px-dropdown-content extend-dropdown='true' extend-dropdown-by='5' max-cont-character-width='10' items='[{"key":"1","val":"1 Hour"},{"key":"2","val":"2 Hours"},{"key":"3","val":"3 Hours"}]'></px-dropdown-content></px-dropdown></td>
+				</tr>
+			</table>
+			</div>
+			
+			<div class="box2">
+				<span><b>DATA</b></span>
+				<hr>
+				<div>
+					<input id="inputData" value="{{data::input}}" type="text" placeholder="Primary Data Item">
+					<input id="inputButton" type="button" value="Input Data">
+				</div>
+				<hr>
+			</div>
+
+			<div class="box1">
+				<span><b>Grouped By</b></span>
+				<hr>
+				<div><input id="inputData" type="text" placeholder="Secondary Data Item"></div>
+				<hr>
+			</div>
+
+			<div class="box1">
+				<span><b>SETTINGS</b></span>
+				<hr>
+				<table>	
+				<tr>
+					<td width="130" align="left"><label for="toggleinput"><b>Drilldown</b></label></td>
+					<td width="350" align="right"><px-toggle id="toggleinput" toggled></px-toggle></td>
+				</tr>
+				</table>	
+				<p>Click on bar or legend to view items it represents.</p>
+			</div>
+		</div>
+		
+	</template>
+	<script>
+		Polymer({
+			is: 'chart-settings',
+			properties: {
+				title: {
+					type: String,
+					value: "Vertical Grouped Chart",
+					notify: true
+				},
+				layout: {
+					type: String,
+					value: "Vertical Grouped Chart",
+					notify: true
+				},
+				timespan: {
+					type: String,
+					value: "Past 1 Day",
+					notify: true
+				},
+				refreshrate: {
+					type: String,
+					value: "1 Hour",
+					notify: true
+				},
+				checked:{
+					type: Boolean,
+					value:false,
+					notify:true
+				},
+				toggled:{
+					type: String,
+					notify:true
+				},
+				chartDataAdded:{
+					type: Array,
+					value:[[1,2,3], [4,5,6], [7,8,9]],
+					notify:true
+				},
+				data:{
+					type: Array,
+					value:[[1,2,3]],
+					notify:true
+				}
+			},
+
+			listeners : {
+				'pxlayout.px-dropdown-value-changed' : 'layoutChanged',
+				'pxtimespan.px-dropdown-value-changed' : 'timespanChanged',
+				'pxrefreshrate.px-dropdown-value-changed' : 'refreshrateChanged',
+				'toggleinput.tap' : 'drilldownChanged',
+				'inputButton.tap' : 'chartDataAdded' 
+			},
+
+			layoutChanged : function(e){
+				debugger;
+				this.layout = e.detail.val;
+				this.title = this.layout;
+			},
+
+			timespanChanged : function(e){
+				this.timespan = e.detail.val;
+			},
+
+			refreshrateChanged : function(e){
+				this.refreshrate = e.detail.val;
+			},
+
+			drilldownChanged : function(e){
+				this.checked = !this.checked;
+				this.toggled = this.checked? "show":"hide";
+			},
+
+			chartDataAdded : function(){
+				this.data = this.chartDataAdded;
+				console.log(this.data);
+			}
+			
+		});	
+	</script>
+</dom-module>

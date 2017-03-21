@@ -1,0 +1,33 @@
+// Settings
+@import "../bower_components/px-defaults-design/_settings.defaults.scss";
+@import "../bower_components/px-colors-design/_settings.colors.scss";
+@import "../bower_components/inuit-responsive-settings/_settings.responsive.scss";
+
+// Tools
+@import "../bower_components/px-functions-design/_tools.functions.scss";
+@import "../bower_components/px-mixins-design/_tools.mixins.scss";
+@import "../bower_components/inuit-responsive-tools/_tools.responsive.scss";
+
+// Generic
+@import "../bower_components/px-normalize-design/_generic.normalize.scss";
+@import "../bower_components/px-box-sizing-design/_generic.box-sizing.scss";
+@import "../bower_components/px-helpers-design/_generic.helpers.scss";
+
+// Base
+@import "../bower_components/px-viewport-design/_base.viewport.scss";
+@import "../bower_components/px-typography-design/_base.typography.scss";
+
+// Meta
+@import "../bower_components/px-meta-lists-design/_meta.lists.scss";
+
+// Objects
+@import "../bower_components/px-buttons-design/_objects.buttons.scss";
+@import "../bower_components/px-layout-design/_objects.layout.scss";
+@import "../bower_components/px-box-design/_objects.box.scss";
+
+// Components
+@import "../bower_components/px-toggle-design/_objects.toggle.scss";
+
+// Trumps
+@import "../bower_components/px-widths-responsive-design/_trumps.widths-responsive.scss";
+@import "../bower_components/px-spacing-responsive-design/_trumps.spacing-responsive.scss";
