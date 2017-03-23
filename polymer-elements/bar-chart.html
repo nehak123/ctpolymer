@@ -114,13 +114,9 @@
       },
       layoutChanged : function(chart_demo,chart){
         console.log(chart_demo);
-        if(chart_demo=="Vertical Grouped Chart" && chart == 1){
+        if((chart_demo=="Vertical Grouped Chart" && chart == 1) || (chart_demo=="Horizontal Grouped Chart" && chart == 2) || (chart_demo=="Vertical Stacked Chart" && chart == 3)){
           return true;
-        }else if(chart_demo=="Horizontal Grouped Chart" && chart == 2){
-          return true;
-        }else if(chart_demo=="Vertical Stacked Chart" && chart == 3){
-          return true;
-        }else{
+        else{
           return false;
         }
       }
